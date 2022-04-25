@@ -48,10 +48,18 @@ export default {
 
   computed: {
     QuotesFiltered: function () {
-      let SelectedCat = this.Tag;
-      return this.QuotesData.results.filter(quote => {
-        return quote.tags.includes(SelectedCat);
-      })
+      if (this.Tag != "") {
+        let SelectedCat = this.Tag;
+        const newQuotes = this.QuotesData.results.filter(quote => {
+          return quote.tags.includes(SelectedCat);
+        });
+        quoteQuestion(newQuotes, this.Question, newQuotes.length);
+        authorAnswers(this.AuthorData.results, this.Question, this.AuthorData.count);
+        return this.Question;
+      }
+      else {
+        return this.Tag;
+      }
     }
   },
 
@@ -60,19 +68,11 @@ export default {
       this.QuotesData = await getQuotes();
       this.AuthorData = await getAuthors();
       this.Question = questions;
-      this.getQuestion(this.QuotesData, this.Question);
-      this.getAwsers(this.AuthorData, this.Question);
+      quoteQuestion(this.QuotesData.results, this.Question, this.QuotesData.count);
+      authorAnswers(this.AuthorData.results, this.Question, this.AuthorData.count);
       this.QuestionNumber = 0;
       this.$root.$emit('load-end', false);
       console.log(this.Question);
-      console.log(this.Question[0].answers.sort(function() { return 0.5 - Math.random() }));
-      //this.Question[0].answers.sort(() => Math.random() - 0.5);
-    },
-    getQuestion: function(arg, questions){
-      quoteQuestion(arg, questions);
-    },
-    getAwsers: function(arg, questions) {
-      authorAnswers(arg, questions);
     },
     getNextQuote: function(){
       this.QuestionNumber++;
