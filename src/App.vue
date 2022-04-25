@@ -2,8 +2,8 @@
   <div id="app">
     <Header/>
     <Loading v-if="isLoading"/>
-    <Beginning v-else v-show="!showHighScores"/>
-    <QuizzBox :Score="this.Score" :Tag="this.tag" v-on:incrementScore="incrementScore"/>
+    <Beginning v-else v-show="showBeginnig"/>
+    <QuizzBox :Score="this.Score" :Tag="this.tag" v-on:incrementScore="incrementScore" v-show="QuizzBegin"/>
     <Score :Score="this.Score" v-show="!hide"/>
     <HightScore v-show="showHighScores"/>
     <Footer/>
@@ -33,7 +33,9 @@ export default {
   data() {
     return {
       isLoading: true,
+      showBeginnig: true,
       showHighScores: false,
+      QuizzBegin: false,
       tag: "",
       Score: 8,
       hide: true
@@ -46,8 +48,13 @@ export default {
       this.$root.$on("tag", (tag_name) => {
         this.tag = tag_name;
       });
+      this.$root.$on("BeginQuizz",(bool) => {
+        this.QuizzBegin = bool;
+        this.showBeginnig = !bool;
+      });
       this.$root.$on("showHighScores", (bool) => {
         this.showHighScores = bool;
+        this.showBeginnig = !bool;
       });
   },
   methods:{
