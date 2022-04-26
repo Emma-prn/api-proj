@@ -6,7 +6,7 @@
     <div id="answer-box">
       <Answer v-for="(answer, index) in Question[QuestionNumber].answers" :key="index" :answer_id="index" :name="answer" @click.native="getResult($event,index,Question[QuestionNumber])"/>
     </div>
-    <Button @click.native="getNextQuote" :button_text="isNext ? 'Next Question' : 'View Score'"/>
+    <Button @click.native="next" :button_text="isNext ? 'Next Question' : 'View Score'"/>
     {{QuotesFiltered}}
   </div>
 </template>
@@ -36,7 +36,7 @@ export default {
           QuotesData: [],
           AuthorData: [],
           Question: [],
-          QuestionNumber: Number,
+          QuestionNumber: 0,
           Right: false,
           isNext : true
       }
@@ -44,7 +44,6 @@ export default {
 
   created: function(){
     this.generateQuestions();
-    this.setScore();
   },
 
   computed: {
@@ -69,14 +68,17 @@ export default {
       this.AuthorData = await getAuthors();
       this.Question = questions;
       quoteQuestion(this.QuotesData.results, this.Question, this.QuotesData.count, this.AuthorData.results);
-      this.QuestionNumber = 0;
       this.$root.$emit('load-end', false);
       console.log(this.Question);
     },
-    getNextQuote: function(){
+    next: function(){
       this.QuestionNumber++;
-      if(this.QuestionNumber + 1 == this.Question.length){
+      if (this.QuestionNumber + 1 == 10) {
         this.isNext = false;
+      }
+      if(this.QuestionNumber == this.Question.length){
+        localStorage.setItem("mostRecentScore", this.Score);
+        this.$root.$emit('end-quiz',true);
       }
       var elementsArray = document.getElementsByClassName("answer");
       for (let i = 0; i < elementsArray.length; i++) {
@@ -85,9 +87,9 @@ export default {
     },
     getResult: function(event,index,question){
       getResult(event,index,question);
-    },
-    setScore: function(){
-      localStorage.setItem("mostRecentScore", this.Score);
+      if (index == question.correctAnswer) {
+        this.$root.$emit('incrementScore', 1);
+      }
     }
   }
 }
