@@ -64,7 +64,6 @@ export default {
   methods:{
     incrementScore: function(points){
       this.Score += points;
-      console.log(this.Score);
     }
   }
 }
