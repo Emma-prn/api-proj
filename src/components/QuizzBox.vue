@@ -54,7 +54,7 @@ export default {
           return quote.tags.includes(SelectedCat);
         });
         quoteQuestion(newQuotes, this.Question, newQuotes.length, this.AuthorData.results);
-        return this.Question;
+        return "";
       }
       else {
         return this.Tag;
@@ -88,7 +88,7 @@ export default {
     getResult: function(event,index,question){
       getResult(event,index,question);
       if (index == question.correctAnswer) {
-        this.$root.$emit('incrementScore', 1);
+        this.$emit('incrementScore', 1);
       }
     }
   }
