@@ -41,4 +41,11 @@ export default {
   padding: 0;
   text-align: center;
 }
+li {
+    font-size: 1.2rem;
+    transition: ease 0.5s;
+}
+li:hover {
+    transform: scale(1.5);
+}
 </style>
