@@ -4,7 +4,7 @@
     <Loading v-if="isLoading"/>
     <Beginning v-else v-show="showBeginnig"/>
     <QuizzBox :Score="this.Score" :Tag="this.tag" v-on:incrementScore="incrementScore" v-show="QuizzBegin"/>
-    <Score :Score="this.Score" v-show="!hide"/>
+    <Score :Score="this.Score" v-show="QuizzEnd"/>
     <HightScore v-show="showHighScores"/>
     <Footer/>
   </div>
@@ -36,9 +36,9 @@ export default {
       showBeginnig: true,
       showHighScores: false,
       QuizzBegin: false,
+      QuizzEnd:false,
       tag: "",
-      Score: 8,
-      hide: true
+      Score: 0
     }
   },
   mounted() {
@@ -52,6 +52,10 @@ export default {
         this.QuizzBegin = bool;
         this.showBeginnig = !bool;
       });
+      this.$root.$on("end-quiz", (bool) => {
+        this.QuizzEnd = bool;
+        this.QuizzBegin = !bool;
+      });
       this.$root.$on("showHighScores", (bool) => {
         this.showHighScores = bool;
         this.showBeginnig = !bool;
@@ -60,6 +64,7 @@ export default {
   methods:{
     incrementScore: function(points){
       this.Score += points;
+      console.log(this.Score);
     }
   }
 }
