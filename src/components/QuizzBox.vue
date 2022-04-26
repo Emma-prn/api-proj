@@ -4,7 +4,7 @@
     <section class="question">Who said ?</section>
     <section class="question">{{Question[QuestionNumber].question}}</section>
     <div id="answer-box">
-      <Answer v-for="(answer, index) in Question[QuestionNumber].answers" :key="index" :answer_id="index" :name="answer"/>
+      <Answer v-for="(answer, index) in Question[QuestionNumber].answers" :key="index" :answer_id="index" :name="answer" @click.native="getResult($event,index,Question[QuestionNumber])"/>
     </div>
     <Button @click.native="getNextQuote" :button_text="isNext ? 'Next Question' : 'View Score'"/>
     {{QuotesFiltered}}
@@ -15,11 +15,11 @@
 import Answer from './Answer.vue'
 import Button from './Button.vue'
 
-import {quoteQuestion} from '@/services/js/random.js'
-import {authorAnswers} from '@/services/js/random.js'
+import {quoteQuestion} from '@/services/js/random.js' 
 import {questions} from '@/services/js/quiz.js'
 import {getQuotes} from '@/services/api/apiCall.js'
 import {getAuthors} from '@/services/api/apiCall.js'
+import {getResult} from '@/services/js/random.js'
 
 export default {
   name: 'QuizzBox',
@@ -37,6 +37,7 @@ export default {
           AuthorData: [],
           Question: [],
           QuestionNumber: Number,
+          Right: false,
           isNext : true
       }
   },
@@ -53,8 +54,7 @@ export default {
         const newQuotes = this.QuotesData.results.filter(quote => {
           return quote.tags.includes(SelectedCat);
         });
-        quoteQuestion(newQuotes, this.Question, newQuotes.length);
-        authorAnswers(this.AuthorData.results, this.Question, this.AuthorData.count);
+        quoteQuestion(newQuotes, this.Question, newQuotes.length, this.AuthorData.results);
         return this.Question;
       }
       else {
@@ -68,8 +68,7 @@ export default {
       this.QuotesData = await getQuotes();
       this.AuthorData = await getAuthors();
       this.Question = questions;
-      quoteQuestion(this.QuotesData.results, this.Question, this.QuotesData.count);
-      authorAnswers(this.AuthorData.results, this.Question, this.AuthorData.count);
+      quoteQuestion(this.QuotesData.results, this.Question, this.QuotesData.count, this.AuthorData.results);
       this.QuestionNumber = 0;
       this.$root.$emit('load-end', false);
       console.log(this.Question);
@@ -79,6 +78,13 @@ export default {
       if(this.QuestionNumber + 1 == this.Question.length){
         this.isNext = false;
       }
+      var elementsArray = document.getElementsByClassName("answer");
+      for (let i = 0; i < elementsArray.length; i++) {
+        elementsArray[i].classList.remove('vrai','faux','deja-rep');
+      }
+    },
+    getResult: function(event,index,question){
+      getResult(event,index,question);
     },
     setScore: function(){
       localStorage.setItem("mostRecentScore", this.Score);
