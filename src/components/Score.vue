@@ -1,8 +1,14 @@
 <template>
   <div  id="box">
-    <section class="question">{{Score}}</section>
-    <input id="username" type="text" v-model="username" placeholder="Username"/>
-    <Button @click.native="setHightScores" :button_text="'Save Score'"/>
+    <section class="score">{{Score}}</section>
+    <form action="">
+      <label for="username">Username :</label>
+      <input id="username" name="username" type="text" v-model="username" placeholder="Username"/>
+    </form>
+    <aside>
+      <Button @click.native="setHightScores" :button_text="'Save Score'"/>
+      <Button @click.native="playAgain" :button_text="'Play again'"/>
+    </aside>
   </div>
 </template>
 
@@ -35,7 +41,26 @@ export default {
         highScores.sort( (a,b) => b.score - a.score);
         highScores.splice(5);
         localStorage.setItem('highScores', JSON.stringify(highScores));
+      },
+      playAgain: function(){
+        document.location.reload();
       }
   }
 }
 </script>
+<style scoped>
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  height: 10vh;
+  width: 50%;
+  margin: 20px;
+  text-align: center;
+}
+.score {
+  font-weight: bold;
+  font-size: 3rem;
+}
+</style>
