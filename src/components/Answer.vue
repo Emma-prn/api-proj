@@ -26,29 +26,48 @@ export default {
 
 <style>
 .answer {
+  position: relative;
   background-color: #E0C9A6;
   color: black;
   width: 35%;
+  border-radius: 10px;
+  overflow: hidden;
+  z-index: 1;
   margin: auto;
   cursor: pointer;
+  transition: ease 0.5s;
 }
-.vrai {
-  background-color: green;
-  animation: fadeIn ease 1s;
+.vrai::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: green;
+    z-index: -1;
+    animation: slideLeft ease 1s;
 }
-.faux {
-  background-color: red;
-  animation: fadeIn ease 1s;
+.faux::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: red;
+    z-index: -1;
+    animation: slideLeft ease 1s;
 }
 .deja-rep {
     pointer-events: none;
 }
-@keyframes fadeIn {
+@keyframes slideLeft {
     0% {
-        opacity: 0.5;
+        transform: translateX(-100%);
     }
     100% {
-        opacity: 1;
+        transform: translateX(0%);
     }
 }
 @media (max-width:768px){
