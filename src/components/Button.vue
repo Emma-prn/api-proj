@@ -26,4 +26,9 @@ export default {
 .button:hover, .answer:hover {
   background-color: #b8873d;
 }
+@media (max-width:768px){
+  .button {
+    margin-bottom: 5px;
+  }
+}
 </style>

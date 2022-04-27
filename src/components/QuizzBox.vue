@@ -68,7 +68,6 @@ export default {
       this.Question = questions;
       quoteQuestion(this.QuotesData.results, this.Question, this.QuotesData.count, this.AuthorData.results);
       this.$root.$emit('load-end', false);
-      console.log(this.Question);
     },
     next: function(){
       this.QuestionNumber++;
