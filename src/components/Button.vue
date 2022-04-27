@@ -11,7 +11,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .button {
   font-family: 'Courgette',cursive;
   background: #E0C9A6;
@@ -22,5 +22,8 @@ export default {
   text-decoration: none;
   transition: ease 0.5s;
   cursor: pointer;
+}
+.button:hover, .answer:hover {
+  background-color: #b8873d;
 }
 </style>
