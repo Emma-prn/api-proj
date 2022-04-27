@@ -23,9 +23,8 @@ export default {
   border-radius: 10px;
 }
 .question {
-  display: flex;
-  align-items: center;
-  height: 50px;
+  height: auto;
+  margin-bottom: 15px;
 }
 @media (max-width:768px){
   #box {

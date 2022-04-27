@@ -101,5 +101,6 @@ export default {
   height: 35vh;
   display: flex;
   flex-wrap: wrap;
+  margin-bottom: 15px;
 }
 </style>
