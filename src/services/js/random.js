@@ -40,10 +40,8 @@ export function getResult(event, index, question) {
   const id = index;
   const currentQuestion = question;
   if (id == currentQuestion.correctAnswer) {
-    console.log('Vrai', id, currentQuestion.correctAnswer);
     event.currentTarget.classList.add('vrai');
   } else {
-    console.log('Faux');
     event.currentTarget.classList.add('faux');
     const rep = document.getElementById('answer-box');
     const ansLen = rep.children.length;
