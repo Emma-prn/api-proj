@@ -13,6 +13,7 @@ export default {
 
 <style scoped>
 .button {
+  font-family: 'Courgette',cursive;
   background: #E0C9A6;
   border: none;
   padding: 10px;
