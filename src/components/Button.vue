@@ -28,7 +28,7 @@ export default {
 }
 @media (max-width:768px){
   .button {
-    margin-bottom: 5px;
+    margin-bottom: 10px;
   }
 }
 </style>

@@ -1,7 +1,12 @@
 <template>
   <div  id="box">
-    <h1>Hello and welcome to Quozz</h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse tincidunt nunc nec nunc suscipit, at dignissim mauris faucibus. Morbi accumsan vel est a laoreet. Praesent varius nisl leo, non dictum tellus vestibulum sed. Sed eget feugiat nisi. Fusce condimentum, diam eget cursus euismod, lorem ex facilisis eros, ac rutrum augue dolor vel diam. Donec in urna ac est lobortis venenatis.</p>
+    <h1>How skilled are you with quotes ?</h1>
+    <p>Welcome to Quozz !<br>
+      If you believe you are unbeatable at guessing the author of quotes, come and test your knowledge ! <br>
+      Will you be able to find the author of each quote ? <br>
+      You can either have random quotes or quotes with a theme. <br>
+      Even if you don't know the answer, pick one at random, before moving to the next question.
+    </p>
     <aside>
       <Button @click.native="beginQuizz()" :button_text="'Random Quotes'"/>
       <Button @click.native="showTags" :button_text="'Choose a tag'"/>
