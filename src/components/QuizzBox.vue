@@ -37,7 +37,6 @@ export default {
           AuthorData: [],
           Question: [],
           QuestionNumber: 0,
-          Right: false,
           isNext : true
       }
   },
