@@ -6,7 +6,7 @@
       <input id="username" name="username" type="text" v-model="username" placeholder="Username"/>
     </form>
     <aside>
-      <Button @click.native="setHightScores" :button_text="'Save Score'"/>
+      <Button @click.native="setHightScores" :button_text="'Save Score'" id="save" disabled/>
       <Button @click.native="playAgain" :button_text="'Play again'"/>
     </aside>
   </div>
@@ -45,6 +45,13 @@ export default {
       playAgain: function(){
         document.location.reload();
       }
+  },
+  mounted(){
+    const saveButton = document.getElementById('save');
+    const username = document.getElementById('username');
+    username.addEventListener('keyup', () => {
+      saveButton.disabled = !username.value;
+    });
   }
 }
 </script>
