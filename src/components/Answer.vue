@@ -37,7 +37,7 @@ export default {
   cursor: pointer;
   transition: ease 0.5s;
 }
-.vrai::before {
+.true::before {
     content: '';
     position: absolute;
     left: 0;
@@ -48,7 +48,7 @@ export default {
     z-index: -1;
     animation: slideLeft ease 1s;
 }
-.faux::before {
+.false::before {
     content: '';
     position: absolute;
     left: 0;
@@ -59,7 +59,7 @@ export default {
     z-index: -1;
     animation: slideLeft ease 1s;
 }
-.deja-rep {
+.already-ans {
     pointer-events: none;
 }
 @keyframes slideLeft {

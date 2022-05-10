@@ -40,14 +40,14 @@ export function getResult(event, index, question) {
   const id = index;
   const currentQuestion = question;
   if (id == currentQuestion.correctAnswer) {
-    event.currentTarget.classList.add('vrai');
+    event.currentTarget.classList.add('true');
   } else {
-    event.currentTarget.classList.add('faux');
+    event.currentTarget.classList.add('false');
     const rep = document.getElementById('answer-box');
     const ansLen = rep.children.length;
     for (let i = 0; i < ansLen; i++) {
       if (parseInt(rep.children[i].id) == currentQuestion.correctAnswer) {
-        rep.children[i].classList.add('vrai');
+        rep.children[i].classList.add('true');
       }
     }
   }
@@ -58,6 +58,6 @@ function dejAns() {
   const rep = document.getElementById('answer-box');
   const ansLen = rep.children.length;
   for (let i = 0; i < ansLen; i++) {
-    rep.children[i].classList.add('deja-rep');
+    rep.children[i].classList.add('already-ans');
   }
 }

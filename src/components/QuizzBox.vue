@@ -80,7 +80,7 @@ export default {
       }
       var elementsArray = document.getElementsByClassName("answer");
       for (let i = 0; i < elementsArray.length; i++) {
-        elementsArray[i].classList.remove('vrai','faux','deja-rep');
+        elementsArray[i].classList.remove('true','false','already-ans');
       }
     },
     getResult: function(event,index,question){
