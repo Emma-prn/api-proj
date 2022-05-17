@@ -49,7 +49,6 @@ export default {
     getTag: function(tag_name){
       this.choosenTag = tag_name;
       this.$root.$emit('tag', this.choosenTag);
-      console.log(this.choosenTag);
     },
     beginQuizz: function(){
       this.$root.$emit('BeginQuizz',true);
