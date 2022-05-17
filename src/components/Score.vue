@@ -1,13 +1,13 @@
 <template>
   <div  id="box">
-    <section class="score">{{Score}}</section>
+    <section class="score">{{score}}</section>
     <form action="">
       <label for="username">Username :</label>
       <input id="username" name="username" type="text" v-model="username" placeholder="Username"/>
     </form>
     <b id="safe"></b>
     <aside>
-      <Button @click.native="setHightScores" :button_text="'Save Score'" id="save" disabled/>
+      <Button @click.native="setHighScores" :button_text="'Save Score'" id="save" disabled/>
       <Button @click.native="playAgain" :button_text="'Play again'"/>
     </aside>
   </div>
@@ -23,7 +23,7 @@ export default {
       Button
   },
   props: {
-    Score: Number
+    score: Number
   },
   data() {
       return {
@@ -31,7 +31,7 @@ export default {
       }
   },
   methods: {
-      setHightScores: function(){
+      setHighScores: function(){
         const scoreSafe = document.getElementById('safe');
         const highScores = JSON.parse(localStorage.getItem("highScores")) || [];
         const saveScore = localStorage.getItem('mostRecentScore');

@@ -51,10 +51,10 @@ export function getResult(event, index, question) {
       }
     }
   }
-  dejAns();
+  answered();
 }
 
-function dejAns() {
+function answered() {
   const rep = document.getElementById('answer-box');
   const ansLen = rep.children.length;
   for (let i = 0; i < ansLen; i++) {

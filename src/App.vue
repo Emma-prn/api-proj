@@ -3,9 +3,9 @@
     <Header/>
     <Loading v-if="isLoading"/>
     <Beginning v-else v-show="showBeginnig"/>
-    <QuizzBox :Score="this.Score" :Tag="this.tag" v-on:incrementScore="incrementScore" v-show="QuizzBegin"/>
-    <Score :Score="this.Score" v-show="QuizzEnd"/>
-    <HightScore v-show="showHighScores"/>
+    <QuizzBox :score="this.score" :Tag="this.tag" v-on:incrementScore="incrementScore" v-show="quizzBegin"/>
+    <Score :score="this.score" v-show="quizzEnd"/>
+    <HighScore v-show="showHighScores"/>
     <Footer/>
   </div>
 </template>
@@ -15,7 +15,7 @@ import Loading from './components/Loading.vue'
 import Beginning from './components/Beginning.vue'
 import QuizzBox from './components/QuizzBox.vue'
 import Score from './components/Score.vue'
-import HightScore from './components/HightScore.vue'
+import HighScore from './components/HighScore.vue'
 import Header from './components/Header.vue'
 import Footer from './components/Footer.vue'
 
@@ -26,7 +26,7 @@ export default {
     Loading,
     Beginning,
     QuizzBox,
-    HightScore,
+    HighScore,
     Score,
     Footer
   },
@@ -35,10 +35,10 @@ export default {
       isLoading: true,
       showBeginnig: true,
       showHighScores: false,
-      QuizzBegin: false,
-      QuizzEnd:false,
+      quizzBegin: false,
+      quizzEnd:false,
       tag: "",
-      Score: 0
+      score: 0
     }
   },
   mounted() {
@@ -48,13 +48,13 @@ export default {
       this.$root.$on("tag", (tag_name) => {
         this.tag = tag_name;
       });
-      this.$root.$on("BeginQuizz",(bool) => {
-        this.QuizzBegin = bool;
+      this.$root.$on("beginQuizz",(bool) => {
+        this.quizzBegin = bool;
         this.showBeginnig = !bool;
       });
       this.$root.$on("end-quiz", (bool) => {
-        this.QuizzEnd = bool;
-        this.QuizzBegin = !bool;
+        this.quizzEnd = bool;
+        this.quizzBegin = !bool;
       });
       this.$root.$on("showHighScores", (bool) => {
         this.showHighScores = bool;
@@ -63,7 +63,7 @@ export default {
   },
   methods:{
     incrementScore: function(points){
-      this.Score += points;
+      this.score += points;
     }
   }
 }

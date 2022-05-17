@@ -4,7 +4,7 @@
     <ul id="list">
         <li v-for="(score,index) in highScores" :key="index">{{score.name}} - {{score.score}}</li>
     </ul>
-    <Button @click.native="showHightScores" :button_text="'Home'"/>
+    <Button @click.native="showHighScores" :button_text="'Home'"/>
   </div>
 </template>
 
@@ -13,7 +13,7 @@
 import Button from './Button.vue'
 
 export default {
-  name: 'HightScore',
+  name: 'HighScore',
   components: {
       Button
   },
@@ -29,7 +29,7 @@ export default {
       getHighScores: function(){
         this.highScores = JSON.parse(localStorage.getItem('highScores')) || [];
       },
-      showHightScores: function(){
+      showHighScores: function(){
       this.$root.$emit('showHighScores', false);
       }
   }

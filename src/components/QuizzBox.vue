@@ -1,10 +1,10 @@
 <template>
   <div  id="box">
-    <section class="question">Question {{QuestionNumber + 1}} of {{Question.length}}</section>
+    <section class="question">Question {{questionNumber + 1}} of {{Question.length}}</section>
     <section class="question">Who said ?</section>
-    <section class="question">{{Question[QuestionNumber].question}}</section>
+    <section class="question">{{Question[questionNumber].question}}</section>
     <div id="answer-box">
-      <Answer v-for="(answer, index) in Question[QuestionNumber].answers" :key="index" :answer_id="index" :name="answer" @click.native="getResult($event,index,Question[QuestionNumber])"/>
+      <Answer v-for="(answer, index) in Question[questionNumber].answers" :key="index" :answer_id="index" :name="answer" @click.native="getResult($event,index,Question[questionNumber])"/>
     </div>
     <Button @click.native="next" :button_text="isNext ? 'Next Question' : 'View Score'"/>
     {{QuotesFiltered}}
@@ -28,15 +28,15 @@ export default {
     Button
   },
   props: {
-    Score: Number,
+    score: Number,
     Tag: String
   },
   data() {
       return {
-          QuotesData: [],
-          AuthorData: [],
+          quotesData: [],
+          authorData: [],
           Question: [],
-          QuestionNumber: 0,
+          questionNumber: 0,
           isNext : true
       }
   },
@@ -49,10 +49,10 @@ export default {
     QuotesFiltered: function () {
       if (this.Tag != "") {
         let SelectedCat = this.Tag;
-        const newQuotes = this.QuotesData.results.filter(quote => {
+        const newQuotes = this.quotesData.results.filter(quote => {
           return quote.tags.includes(SelectedCat);
         });
-        quoteQuestion(newQuotes, this.Question, newQuotes.length, this.AuthorData.results);
+        quoteQuestion(newQuotes, this.Question, newQuotes.length, this.authorData.results);
         return "";
       }
       else {
@@ -63,19 +63,19 @@ export default {
 
   methods: {
     generateQuestions: async function() {
-      this.QuotesData = await getQuotes();
-      this.AuthorData = await getAuthors();
+      this.quotesData = await getQuotes();
+      this.authorData = await getAuthors();
       this.Question = questions;
-      quoteQuestion(this.QuotesData.results, this.Question, this.QuotesData.count, this.AuthorData.results);
+      quoteQuestion(this.quotesData.results, this.Question, this.quotesData.count, this.authorData.results);
       this.$root.$emit('load-end', false);
     },
     next: function(){
-      this.QuestionNumber++;
-      if (this.QuestionNumber + 1 == 10) {
+      this.questionNumber++;
+      if (this.questionNumber + 1 == 10) {
         this.isNext = false;
       }
-      if(this.QuestionNumber == this.Question.length){
-        localStorage.setItem("mostRecentScore", this.Score);
+      if(this.questionNumber == this.Question.length){
+        localStorage.setItem("mostRecentScore", this.score);
         this.$root.$emit('end-quiz',true);
       }
       var elementsArray = document.getElementsByClassName("answer");

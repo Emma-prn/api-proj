@@ -10,10 +10,10 @@
     <aside>
       <Button @click.native="beginQuizz()" :button_text="'Random Quotes'"/>
       <Button @click.native="showTags" :button_text="'Choose a tag'"/>
-      <Button @click.native="showHightScores" :button_text="'Hight Scores'"/>
+      <Button @click.native="showHighScores" :button_text="'High Scores'"/>
     </aside>
     <aside class="tags" v-show="showTag">
-      <Button v-for="(tag,index) in Tagsdata" :key="index" @click.native="getTag(tag.name); beginQuizz()" :button_text="tag.name"/>
+      <Button v-for="(tag,index) in tagsdata" :key="index" @click.native="getTag(tag.name); beginQuizz()" :button_text="tag.name"/>
     </aside>
   </div>
 </template>
@@ -34,14 +34,14 @@ export default {
   },
   data() {
     return {
-      Tagsdata: [],
+      tagsdata: [],
       showTag: false,
       choosenTag: ""
     }
   },
   methods: {
     getTags: async function(){
-      this.Tagsdata = await getTags();
+      this.tagsdata = await getTags();
     },
     showTags: function() {
       this.showTag = !this.showTag;
@@ -51,9 +51,9 @@ export default {
       this.$root.$emit('tag', this.choosenTag);
     },
     beginQuizz: function(){
-      this.$root.$emit('BeginQuizz',true);
+      this.$root.$emit('beginQuizz',true);
     },
-    showHightScores: function(){
+    showHighScores: function(){
       this.$root.$emit('showHighScores', true);
     }
   }
