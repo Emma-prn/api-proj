@@ -4,6 +4,12 @@ export async function getQuotes() {
   return data;
 }
 
+export async function getQuotesByTags() {
+  const request = await fetch('https://quotable.io/quotes?limit=150&tags=famous-quotes|wisdom|friendship');
+  const data = await request.json();
+  return data;
+}
+
 export async function getAuthors() {
   const request = await fetch('https://api.quotable.io/authors?limit=150');
   const data = await request.json();

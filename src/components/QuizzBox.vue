@@ -18,6 +18,7 @@ import Button from './Button.vue'
 import {quoteQuestion} from '@/services/js/random.js' 
 import {questions} from '@/services/js/quiz.js'
 import {getQuotes} from '@/services/api/apiCall.js'
+import {getQuotesByTags} from '@/services/api/apiCall.js'
 import {getAuthors} from '@/services/api/apiCall.js'
 import {getResult} from '@/services/js/random.js'
 
@@ -34,6 +35,7 @@ export default {
   data() {
       return {
           quotesData: [],
+          quotesByTag: [],
           authorData: [],
           Question: [],
           questionNumber: 0,
@@ -43,13 +45,14 @@ export default {
 
   created: function(){
     this.generateQuestions();
+    this.getQuotesByTags();
   },
 
   computed: {
     QuotesFiltered: function () {
       if (this.Tag != "") {
         let SelectedCat = this.Tag;
-        const newQuotes = this.quotesData.results.filter(quote => {
+        const newQuotes = this.quotesByTag.results.filter(quote => {
           return quote.tags.includes(SelectedCat);
         });
         quoteQuestion(newQuotes, this.Question, newQuotes.length, this.authorData.results);
@@ -68,6 +71,9 @@ export default {
       this.Question = questions;
       quoteQuestion(this.quotesData.results, this.Question, this.quotesData.count, this.authorData.results);
       this.$root.$emit('load-end', false);
+    },
+    getQuotesByTags: async function() {
+      this.quotesByTag = await getQuotesByTags();
     },
     next: function(){
       this.questionNumber++;
